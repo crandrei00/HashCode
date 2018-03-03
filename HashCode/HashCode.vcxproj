@@ -148,12 +148,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Car.hpp" />
+    <ClInclude Include="HashCode.hpp" />
+    <ClInclude Include="Reader.hpp" />
     <ClInclude Include="Ride.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClosestToCurrentCar.cpp" />
+    <ClCompile Include="ClosestToStart.cpp" />
     <ClCompile Include="HashCode.cpp" />
+    <ClCompile Include="Ride.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -162,7 +167,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Input.in" />
+    <None Include="a_example.in" />
+    <None Include="b_should_be_easy.in" />
+    <None Include="c_no_hurry.in" />
+    <None Include="d_metropolis.in" />
+    <None Include="e_high_bonus.in" />
     <None Include="Write.out" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
