@@ -73,7 +73,8 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
    }
 
    std::ofstream outFile;
-   outFile.open("bestRoutePriority.out");
+   std::string fileName = "bestRoutePriority_" + reader.m_fileName + ".out";
+   outFile.open(fileName);
    for (auto car : cars)
    {
       outFile << car.m_rides.size();

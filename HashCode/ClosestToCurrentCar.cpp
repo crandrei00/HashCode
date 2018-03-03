@@ -63,7 +63,8 @@ void execute_closestToCar(const Reader& reader, Cars& cars, Rides& rides)
    }
 
    std::ofstream outFile;
-   outFile.open("closestToCar.out");
+   std::string fileName = "closestToCar_" + reader.m_fileName + ".out";
+   outFile.open(fileName);
    for (auto car : cars)
    {
       outFile << car.m_rides.size();

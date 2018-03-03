@@ -12,7 +12,8 @@ void execute_closestToStart(const Reader& reader, Rides& rides)
    std::sort(rides.begin(), rides.end(), compareRides_closestToStart());
 
    std::ofstream outFile;
-   outFile.open("closestToStart.out");
+   std::string fileName = "closestToStart_" + reader.m_fileName + ".out";
+   outFile.open(fileName);
    for (unsigned i = 0; i < reader.m_numOfCars; i++)
    {
       outFile << 1<< " " << rides[i].id() << "\n";
@@ -26,7 +27,8 @@ void execute_closestToStartAndEarliestStart(const Reader& reader, Rides& rides)
    std::sort(rides.begin(), rides.end(), compareRides_closestToStart());
 
    std::ofstream outFile;
-   outFile.open("closestToStart2.out");
+   std::string fileName = "closestToStart2_" + reader.m_fileName + ".out";
+   outFile.open(fileName);
    for (unsigned i = 0; i < reader.m_numOfCars; i++)
    {
       outFile << 1 << " " << rides[i].id() << "\n";
