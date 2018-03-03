@@ -40,7 +40,7 @@ struct Reader
 
       // read rides information
       rides.reserve(m_numOfRides * 2);
-      for (auto i = 0; i < m_numOfRides; i++)
+      for (unsigned i = 0; i < m_numOfRides; i++)
       {
          int startX, startY, endX, endY, startT, endT; 
          inFile >> startX >> startY >> endX >> endY >> startT >> endT; 

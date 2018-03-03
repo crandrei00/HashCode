@@ -155,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BestRideRoutePriority.cpp" />
     <ClCompile Include="ClosestToCurrentCar.cpp" />
     <ClCompile Include="ClosestToStart.cpp" />
     <ClCompile Include="HashCode.cpp" />
