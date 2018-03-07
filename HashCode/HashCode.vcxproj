@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BestRideRoutePriority.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="ClosestToCurrentCar.cpp" />
     <ClCompile Include="ClosestToStart.cpp" />
     <ClCompile Include="HashCode.cpp" />

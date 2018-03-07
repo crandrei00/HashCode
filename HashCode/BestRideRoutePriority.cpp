@@ -29,7 +29,7 @@ void execute_bestRoutePriority(const Reader& reader, CarsPtr cars, Rides& rides)
          {
             int rideIndex = generateBestPriorityScore(car.m_currentPosition, rides, step);
 
-            // pick first ride, as it is assumed to be the best for current car
+            // pick ride based on index; if negative, no ride available for current car position and step
             if (rideIndex < 0)
             {
                continue;

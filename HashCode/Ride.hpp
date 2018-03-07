@@ -68,7 +68,7 @@ bool operator==(const Coord& first, const Coord& second);
 
 //-----------------------------------
 
-int getDistance(const Coord& first, const Coord& second);
+unsigned long getDistance(const Coord& first, const Coord& second);
 
 //-----------------------------------
 

@@ -10,7 +10,7 @@ bool operator==(const Coord& first, const Coord& second)
 
 //-----------------------------------
 
-int getDistance(const Coord& first, const Coord& second)
+unsigned long getDistance(const Coord& first, const Coord& second)
 {
    return std::abs(first.first - second.first) + std::abs(first.second - second.second);
 }
@@ -19,16 +19,16 @@ int getDistance(const Coord& first, const Coord& second)
 
 int generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step)
 {
-   int bestScore = std::numeric_limits<int>::max();
+   unsigned long bestScore = std::numeric_limits<unsigned long>::max();
    int bestScoreIndex = -1;
 
    for (auto i = 0; i < rides.size() && bestScore != 0; i++)
    {
       Ride& ride = rides[i];
 
-      int distanceToRide = getDistance(refPosition, ride.startPosition());
-      int rideLen = getDistance(ride.startPosition(), ride.endPosition());
-      int rideScore = ride.finishTime() - (distanceToRide + rideLen) - step;
+      unsigned long distanceToRide = getDistance(refPosition, ride.startPosition());
+      unsigned long rideLen = getDistance(ride.startPosition(), ride.endPosition());
+      unsigned long rideScore = ride.finishTime() - (distanceToRide + rideLen) - step;
 
       if (rideScore >= 0 && rideScore < bestScore)
       {
