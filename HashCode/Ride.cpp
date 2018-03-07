@@ -17,18 +17,18 @@ int getDistance(const Coord& first, const Coord& second)
 
 //-----------------------------------
 
-unsigned generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step)
+int generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step)
 {
-   unsigned bestScore = std::numeric_limits<unsigned>::max();
-   unsigned bestScoreIndex = -1;
+   int bestScore = std::numeric_limits<int>::max();
+   int bestScoreIndex = -1;
 
    for (auto i = 0; i < rides.size() && bestScore != 0; i++)
    {
       Ride& ride = rides[i];
 
-      auto distanceToRide = getDistance(refPosition, ride.startPosition());
-      auto rideLen = getDistance(ride.startPosition(), ride.endPosition());
-      auto rideScore = ride.finishTime() - (distanceToRide + rideLen) - step;
+      int distanceToRide = getDistance(refPosition, ride.startPosition());
+      int rideLen = getDistance(ride.startPosition(), ride.endPosition());
+      int rideScore = ride.finishTime() - (distanceToRide + rideLen) - step;
 
       if (rideScore >= 0 && rideScore < bestScore)
       {
@@ -39,3 +39,23 @@ unsigned generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned ste
 
    return bestScoreIndex;
 }
+
+//-----------------------------------
+
+void purgeExpiredRidesForStep(Rides& rides, unsigned step)
+{
+   auto ride = rides.begin();
+   while (ride != rides.end())
+   {
+      if (ride->finishTime() <= step)
+      {
+         ride = rides.erase(ride);
+      }
+      else
+      {
+         ++ride;
+      }
+   }
+}
+
+//-----------------------------------

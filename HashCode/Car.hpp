@@ -1,6 +1,8 @@
 #pragma once
 
+#include <memory>
 #include "Ride.hpp"
+#include "Reader.hpp"
 
 struct Car
 {
@@ -48,3 +50,6 @@ struct Car
 };
 
 typedef std::vector<Car> Cars;
+typedef std::shared_ptr<Cars> CarsPtr;
+
+CarsPtr getCars(Reader& reader);

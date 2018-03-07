@@ -170,4 +170,8 @@ struct compareRides_closestToCar_
 
 //-----------------------------------
 
-unsigned generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step);
+int generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step);
+
+//-----------------------------------
+
+void purgeExpiredRidesForStep(Rides& rides, unsigned step);

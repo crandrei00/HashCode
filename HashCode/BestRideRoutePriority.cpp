@@ -6,25 +6,28 @@ soon to start ride.
 
 #include "stdafx.h"
 #include "HashCode.hpp"
+#include <iostream>
 
-void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
+void execute_bestRoutePriority(const Reader& reader, CarsPtr cars, Rides& rides)
 {
+   std::cout << "Processing file " + reader.m_fileName + " ... \n";
+
    // sort rides
    for (unsigned step = 0; step < reader.m_totalT && rides.size(); ++step)
    {
-      for (auto carIt = 0; carIt < cars.size(); carIt++)
-      {
-         Car& car = cars[carIt];
+      purgeExpiredRidesForStep(rides, step);
 
+      for (auto carIt = 0; carIt < cars->size(); carIt++)
+      {
          if (rides.size() == 0)
          {
             break;
          }
 
+         Car& car = cars->at(carIt);
          if (!car.m_onTrip && !car.m_onRoute)
          {
-            //std::sort(rides.begin(), rides.end(), compareRides_closestToCar_(car.m_currentPosition, step));
-            unsigned rideIndex = generateBestPriorityScore(car.m_currentPosition, rides, step);
+            int rideIndex = generateBestPriorityScore(car.m_currentPosition, rides, step);
 
             // pick first ride, as it is assumed to be the best for current car
             if (rideIndex < 0)
@@ -73,9 +76,9 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
    }
 
    std::ofstream outFile;
-   std::string fileName = "bestRoutePriority_" + reader.m_fileName + ".out";
+   std::string fileName = "bestRoutePriority_" + reader.m_fileName.substr(0, reader.m_fileName.find(".in")) + ".out";
    outFile.open(fileName);
-   for (auto car : cars)
+   for (auto car : *cars)
    {
       outFile << car.m_rides.size();
       for (auto rideTaken : car.m_rides)
@@ -85,4 +88,6 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
       outFile << "\n";
    }
    outFile.close();
+
+   std::cout << "Processing file " + reader.m_fileName + " ... done! \n";
 }
