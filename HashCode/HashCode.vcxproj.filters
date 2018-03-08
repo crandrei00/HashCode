@@ -58,9 +58,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Write.out">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="a_example.in">
       <Filter>Resource Files</Filter>
     </None>

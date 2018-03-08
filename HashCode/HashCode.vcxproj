@@ -174,7 +174,6 @@
     <None Include="c_no_hurry.in" />
     <None Include="d_metropolis.in" />
     <None Include="e_high_bonus.in" />
-    <None Include="Write.out" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
