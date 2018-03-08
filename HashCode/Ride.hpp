@@ -1,8 +1,12 @@
 #pragma once
 
+//-----------------------------------
+
 #include <utility>
 #include <vector>
 #include <limits>
+
+//-----------------------------------
 
 class Ride;
 typedef std::pair<int, int>            Coord;
@@ -185,3 +189,5 @@ int generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step);
 //-----------------------------------
 
 void purgeExpiredRidesForStep(Rides& rides, unsigned step);
+
+//-----------------------------------

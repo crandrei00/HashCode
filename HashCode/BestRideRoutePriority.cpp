@@ -4,15 +4,17 @@ arrival to final ride step. Also added car wait for current route - route assign
 soon to start ride.
 **/
 
+//-----------------------------------
+
 #include "stdafx.h"
 #include "HashCode.hpp"
-#include <iostream>
+
+//-----------------------------------
 
 void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
 {
    std::cout << "Processing file " + reader.m_fileName + " ... \n";
 
-   // sort rides
    for (unsigned step = 0; step < reader.m_totalT && rides.size(); ++step)
    {
       purgeExpiredRidesForStep(rides, step);
@@ -24,9 +26,10 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
             break;
          }
 
-         Car& car = cars[carIt];
+         Car& car = cars[carIt];         
          if (!car.m_onTrip && !car.m_onRoute)
          {
+            // car available; find next ride
             int rideIndex = generateBestPriorityScore(car.m_currentPosition, rides, step);
 
             // pick ride based on index; if negative, no ride available for current car position and step
@@ -43,6 +46,7 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
 
             if (car.m_distanceToRideStart == 0 && car.m_currentRide.startTime() <= step)
             {
+               // car on starting point & able to start ride
                car.m_onRoute = true;
                car.m_distanceToFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
                --car.m_distanceToFinish;
@@ -55,16 +59,19 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
          }
          else if (car.m_onTrip && !car.m_onRoute)
          {
+            // car not available, but ride not started
             car.m_distanceToRideStart > 0 ? --car.m_distanceToRideStart : car.m_distanceToRideStart;
 
             if (car.m_distanceToRideStart == 0 && car.m_currentRide.startTime() <= step)
             {
+               // start ride
                car.m_onRoute = true;
                car.m_distanceToFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
             }
          }
          else if (car.m_onTrip && car.m_onRoute)
          {
+            // car not available, currently on route to destination
             --car.m_distanceToFinish;
 
             if (car.m_distanceToFinish == 0)
@@ -91,3 +98,5 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
 
    std::cout << "Processing file " + reader.m_fileName + " ... done! \n";
 }
+
+//-----------------------------------

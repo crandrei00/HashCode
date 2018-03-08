@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Car.hpp"
 
+//-----------------------------------
+
 void getCars(Reader& reader, Cars& cars)
 {
    cars.reserve(reader.m_numOfCars * 2);
@@ -10,3 +12,5 @@ void getCars(Reader& reader, Cars& cars)
       cars.push_back(newCar);
    }
 }
+
+//-----------------------------------

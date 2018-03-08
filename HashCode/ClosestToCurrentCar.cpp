@@ -2,8 +2,12 @@
 For each car we sort the rides based on current car position and pick those rides which are closest
 **/
 
+//-----------------------------------
+
 #include "stdafx.h"
 #include "HashCode.hpp"
+
+//-----------------------------------
 
 void execute_closestToCar(const Reader& reader, Cars& cars, Rides& rides)
 {
@@ -76,3 +80,5 @@ void execute_closestToCar(const Reader& reader, Cars& cars, Rides& rides)
    }
    outFile.close();
 }
+
+//-----------------------------------

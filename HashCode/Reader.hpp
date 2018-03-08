@@ -1,8 +1,12 @@
 #pragma once
 
+//-----------------------------------
+
 #include <string>
 #include <fstream>
 #include "Ride.hpp"
+
+//-----------------------------------
 
 struct Reader
 {
@@ -54,3 +58,5 @@ struct Reader
       return readSuccessfully;
    }
 };
+
+//-----------------------------------

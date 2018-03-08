@@ -3,8 +3,12 @@ The idea is to sort all the rides based on distance to start and assign those ri
 It's not meant to be the best idea, but rather an intermediary step toward a better solution.
 **/
 
+//-----------------------------------
+
 #include "stdafx.h"
 #include "HashCode.hpp"
+
+//-----------------------------------
 
 void execute_closestToStart(const Reader& reader, Rides& rides)
 {
@@ -21,6 +25,8 @@ void execute_closestToStart(const Reader& reader, Rides& rides)
    outFile.close();
 }
 
+//-----------------------------------
+
 void execute_closestToStartAndEarliestStart(const Reader& reader, Rides& rides)
 {
    // sort rides
@@ -35,3 +41,5 @@ void execute_closestToStartAndEarliestStart(const Reader& reader, Rides& rides)
    }
    outFile.close();
 }
+
+//-----------------------------------
