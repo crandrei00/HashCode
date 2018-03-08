@@ -41,6 +41,7 @@ struct Car
 
    void finishRide()
    {
+      m_currentPosition = m_currentRide.endPosition();
       m_onTrip = false;
       m_onRoute = false;
       m_rideNumber = -1;
@@ -52,4 +53,4 @@ struct Car
 typedef std::vector<Car> Cars;
 typedef std::shared_ptr<Cars> CarsPtr;
 
-CarsPtr getCars(Reader& reader);
+void getCars(Reader& reader, Cars& cars);

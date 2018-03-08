@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Ride.hpp"
+#include <algorithm>
 
 //-----------------------------------
 
@@ -27,7 +28,8 @@ int generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step)
       Ride& ride = rides[i];
 
       unsigned long distanceToRide = getDistance(refPosition, ride.startPosition());
-      unsigned long rideLen = getDistance(ride.startPosition(), ride.endPosition());
+      unsigned long rideLen = ride.rideLength();
+      //unsigned long rideScore = ride.finishTime() - (distanceToRide + rideLen) - std::max(step, ride.startTime());
       unsigned long rideScore = ride.finishTime() - (distanceToRide + rideLen) - step;
 
       if (rideScore >= 0 && rideScore < bestScore)
@@ -47,7 +49,8 @@ void purgeExpiredRidesForStep(Rides& rides, unsigned step)
    auto ride = rides.begin();
    while (ride != rides.end())
    {
-      if (ride->finishTime() <= step)
+      if (ride->finishTime() <= step ||
+         step + getDistance(ride->startPosition(), ride->endPosition()) > ride->finishTime())
       {
          ride = rides.erase(ride);
       }

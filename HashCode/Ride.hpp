@@ -9,10 +9,17 @@ typedef std::pair<int, int>            Coord;
 typedef std::vector<Ride>              Rides;
 typedef std::vector<std::vector<int> > RidesPerCar;
 
+//-----------------------------------
+
+unsigned long getDistance(const Coord& first, const Coord& second);
+
+//-----------------------------------
+
 class Ride
 {
    Coord m_startPos;
    Coord m_endPos;
+   unsigned m_rideLen;
    unsigned m_startTime;
    unsigned m_finishTime;
    unsigned m_rideID;
@@ -21,6 +28,7 @@ public:
    Ride()
       : m_startPos(Coord())
       , m_endPos(Coord())
+      , m_rideLen(0)
       , m_startTime(0)
       , m_finishTime(0)
       , m_rideID(-1)
@@ -30,6 +38,7 @@ public:
    Ride(Coord start, Coord end, int startTime, int endTime, int id)
       : m_startPos(start)
       , m_endPos(end)
+      , m_rideLen(getDistance(start, end))
       , m_startTime(startTime)
       , m_finishTime(endTime)
       , m_rideID(id)
@@ -44,6 +53,11 @@ public:
    Coord endPosition() const
    {
       return m_endPos;
+   }
+
+   unsigned rideLength() const
+   {
+      return m_rideLen;
    }
 
    unsigned startTime() const
@@ -65,10 +79,6 @@ public:
 //-----------------------------------
 
 bool operator==(const Coord& first, const Coord& second);
-
-//-----------------------------------
-
-unsigned long getDistance(const Coord& first, const Coord& second);
 
 //-----------------------------------
 

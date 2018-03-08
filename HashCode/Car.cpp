@@ -1,14 +1,12 @@
 #include "stdafx.h"
 #include "Car.hpp"
 
-CarsPtr getCars(Reader& reader)
+void getCars(Reader& reader, Cars& cars)
 {
-   CarsPtr cars = std::make_shared<Cars>();
+   cars.reserve(reader.m_numOfCars * 2);
    for (unsigned i = 0; i < reader.m_numOfCars; i++)
    {
       Car newCar(i);
-      cars->push_back(newCar);
+      cars.push_back(newCar);
    }
-
-   return cars;
 }

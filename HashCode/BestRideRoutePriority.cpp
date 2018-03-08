@@ -8,7 +8,7 @@ soon to start ride.
 #include "HashCode.hpp"
 #include <iostream>
 
-void execute_bestRoutePriority(const Reader& reader, CarsPtr cars, Rides& rides)
+void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
 {
    std::cout << "Processing file " + reader.m_fileName + " ... \n";
 
@@ -17,14 +17,14 @@ void execute_bestRoutePriority(const Reader& reader, CarsPtr cars, Rides& rides)
    {
       purgeExpiredRidesForStep(rides, step);
 
-      for (auto carIt = 0; carIt < cars->size(); carIt++)
+      for (auto carIt = 0; carIt < cars.size(); carIt++)
       {
          if (rides.size() == 0)
          {
             break;
          }
 
-         Car& car = cars->at(carIt);
+         Car& car = cars[carIt];
          if (!car.m_onTrip && !car.m_onRoute)
          {
             int rideIndex = generateBestPriorityScore(car.m_currentPosition, rides, step);
@@ -78,7 +78,7 @@ void execute_bestRoutePriority(const Reader& reader, CarsPtr cars, Rides& rides)
    std::ofstream outFile;
    std::string fileName = "bestRoutePriority_" + reader.m_fileName.substr(0, reader.m_fileName.find(".in")) + ".out";
    outFile.open(fileName);
-   for (auto car : *cars)
+   for (auto car : cars)
    {
       outFile << car.m_rides.size();
       for (auto rideTaken : car.m_rides)
