@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <thread>
 #include "Reader.hpp"
 #include "Car.hpp"
 
