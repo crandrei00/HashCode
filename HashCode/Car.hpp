@@ -10,14 +10,14 @@
 
 struct Car
 {
-   Coord m_currentPosition;
-   bool  m_onTrip;
-   bool  m_onRoute;
-   int   m_rideNumber;
-   Ride  m_currentRide;
-   int   m_distanceToRideFinish;
-   int   m_distanceToRideStart;
-   int   m_carID;
+   Coord          m_currentPosition;
+   bool           m_onTrip;
+   bool           m_onRoute;
+   int            m_rideNumber;
+   Ride           m_currentRide;
+   int            m_distanceToRideFinish;
+   int            m_distanceToRideStart;
+   int            m_carID;
 
    std::vector<int> m_rides;
 
@@ -55,12 +55,14 @@ struct Car
 
    int advanceToRideStart()
    {
-      return --m_distanceToRideStart;
+      m_distanceToRideStart > 0 ? --m_distanceToRideStart : m_distanceToRideStart;
+      return m_distanceToRideStart;
    }
 
    int advanceToRideFinish()
    {
-      return --m_distanceToRideFinish;
+      m_distanceToRideFinish > 0 ? --m_distanceToRideFinish : m_distanceToRideFinish;
+      return m_distanceToRideFinish;
    }
 };
 
@@ -71,5 +73,13 @@ typedef std::vector<Car> Cars;
 //-----------------------------------
 
 void getCars(Reader& reader, Cars& cars);
+
+//-----------------------------------
+
+bool hasTimeRunOut(const Cars& cars, unsigned totalTime);
+
+//-----------------------------------
+
+void findCarForRide(Ride& ride, Cars& cars);
 
 //-----------------------------------

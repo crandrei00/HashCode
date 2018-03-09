@@ -13,7 +13,7 @@ soon to start ride.
 
 void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
 {
-   std::cout << "Processing file " + reader.m_fileName + " ... \n";
+   std::cout << "Processing execute_bestRoutePriority() on file " + reader.m_fileName + " ... \n";
 
    for (unsigned step = 0; step < reader.m_totalT && rides.size(); ++step)
    {
@@ -44,32 +44,26 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
             if (car.m_distanceToRideStart == 0 && car.m_currentRide.startTime() <= step)
             {
                // car on starting point & able to start ride
-               car.m_onRoute = true;
+               car.m_onRoute = true;               
                car.m_distanceToRideFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
                car.advanceToRideFinish();
             }
             else 
             {
                // car too soon on ride starting point
-               car.m_distanceToRideStart > 0 ? car.advanceToRideStart() : car.m_distanceToRideStart;
+               car.advanceToRideStart();
             }
          }
          else if (car.m_onTrip && !car.m_onRoute)
          {
             // car not available, but ride not started
-            bool carAlreadyAdvanced = false;
-            if (car.m_distanceToRideStart > 0)
-            {
-               car.advanceToRideStart();               
-               carAlreadyAdvanced = true;
-            }
+            car.advanceToRideStart();
             
             if (car.m_distanceToRideStart == 0 && car.m_currentRide.startTime() <= step)
             {
                // start ride
                car.m_onRoute = true;
                car.m_distanceToRideFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
-               if (!carAlreadyAdvanced) car.advanceToRideFinish();
             }
          }
          else if (car.m_onTrip && car.m_onRoute)
@@ -97,7 +91,7 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
    }
    outFile.close();
 
-   std::cout << "Processing file " + reader.m_fileName + " ... done! \n";
+   std::cout << "Processing execute_bestRoutePriority() on file " + reader.m_fileName + " ... done! \n";
 }
 
 //-----------------------------------
