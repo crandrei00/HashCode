@@ -13,9 +13,13 @@ void execute_bestCarForRide(const Reader& reader, Cars& cars, Rides& rides)
 {
    std::cout << "Processing execute_bestCarForRide() on file " + reader.m_fileName + " ... \n";
 
-   for each (auto ride in rides)
+   // sort rides according to (i) distance to origin and (ii) start time
+   std::sort(rides.begin(), rides.end(), compareRides_closestToStartAndEarliestStart());
+
+   // todo: now try to match remaining rides' starting point/time with assigned rides end point/time
+   for (auto ride : rides)
    {
-      if (hasTimeRunOut(cars, reader.m_totalT)) break;
+      //if (hasTimeRunOut(cars, reader.m_totalT)) break;
 
       findCarForRide(ride, cars);
    }

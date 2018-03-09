@@ -33,6 +33,7 @@ void findCarForRide(Ride& ride, Cars& cars)
          distanceToStart = getDistance(car.m_currentPosition, car.m_currentRide.startPosition())
             + car.m_currentRide.rideLength()
             + getDistance(ride.startPosition(), car.m_currentRide.endPosition());
+
       }
       else // if (car->m_onTrip && car->m_onRoute) // car has current trip to finish
       {
@@ -40,7 +41,8 @@ void findCarForRide(Ride& ride, Cars& cars)
             + car.m_currentRide.rideLength(); // ? not entirely correct, since we don't really know where the car is; presumably ride start
       }
 
-      if (distanceToStart < minDistanceToStart)
+      if (distanceToStart < minDistanceToStart &&
+         ride.finishTime() - (distanceToStart + ride.rideLength()) >= 0)
       {
          minDistanceToStart = distanceToStart;
          minDistanceCarIndex = i;
@@ -59,7 +61,7 @@ void findCarForRide(Ride& ride, Cars& cars)
 bool hasTimeRunOut(const Cars& cars, unsigned totalTime)
 {
    unsigned outOfTimeLimitCars = 0;
-   for each (auto car in cars)
+   for (auto car : cars)
    {
       if (!car.m_rides.size() && car.m_currentRide.startTime() > totalTime)
       {
