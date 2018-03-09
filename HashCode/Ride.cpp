@@ -28,14 +28,16 @@ int generateBestPriorityScore(Coord refPosition, Rides& rides, unsigned step)
       Ride& ride = rides[i];
 
       unsigned long distanceToRide = getDistance(refPosition, ride.startPosition());
-      unsigned long rideLen = ride.rideLength();
-      //unsigned long rideScore = ride.finishTime() - (distanceToRide + rideLen) - std::max(step, ride.startTime());
-      unsigned long rideScore = ride.finishTime() - (distanceToRide + rideLen) - step;
+      unsigned long rideScore = (ride.finishTime()) - (distanceToRide + ride.rideLength() + step);
 
-      if (rideScore >= 0 && rideScore < bestScore)
+      if (rideScore >= 0)
       {
-         bestScore = rideScore; 
-         bestScoreIndex = i;
+         rideScore += ride.startTime();
+         if (rideScore < bestScore)
+         {
+            bestScore = rideScore;
+            bestScoreIndex = i;
+         }
       }
    }
 

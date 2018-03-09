@@ -15,7 +15,7 @@ struct Car
    bool  m_onRoute;
    int   m_rideNumber;
    Ride  m_currentRide;
-   int   m_distanceToFinish;
+   int   m_distanceToRideFinish;
    int   m_distanceToRideStart;
    int   m_carID;
 
@@ -27,7 +27,7 @@ struct Car
       , m_onRoute(false)
       , m_rideNumber(-1)
       , m_currentRide()
-      , m_distanceToFinish(-1)
+      , m_distanceToRideFinish(-1)
       , m_distanceToRideStart(-1)
       , m_carID(id)
    {
@@ -50,7 +50,17 @@ struct Car
       m_onRoute = false;
       m_rideNumber = -1;
       m_distanceToRideStart = -1;
-      m_distanceToFinish = -1;
+      m_distanceToRideFinish = -1;
+   }
+
+   int advanceToRideStart()
+   {
+      return --m_distanceToRideStart;
+   }
+
+   int advanceToRideFinish()
+   {
+      return --m_distanceToRideFinish;
    }
 };
 

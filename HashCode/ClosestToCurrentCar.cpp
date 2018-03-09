@@ -36,8 +36,8 @@ void execute_closestToCar(const Reader& reader, Cars& cars, Rides& rides)
             if (car.m_distanceToRideStart == 0)
             {
                car.m_onRoute = true;               
-               car.m_distanceToFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
-               --car.m_distanceToFinish;
+               car.m_distanceToRideFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
+               --car.m_distanceToRideFinish;
             }
             else
             {
@@ -51,14 +51,14 @@ void execute_closestToCar(const Reader& reader, Cars& cars, Rides& rides)
             if (car.m_distanceToRideStart == 0)
             {
                car.m_onRoute = true;
-               car.m_distanceToFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
+               car.m_distanceToRideFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
             }
          }
          else if (car.m_onTrip && car.m_onRoute)
          {
-            --car.m_distanceToFinish;
+            --car.m_distanceToRideFinish;
 
-            if (car.m_distanceToFinish == 0)
+            if (car.m_distanceToRideFinish == 0)
             {
                car.finishRide();
             }

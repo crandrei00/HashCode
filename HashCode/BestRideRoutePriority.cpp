@@ -21,10 +21,7 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
 
       for (auto carIt = 0; carIt < cars.size(); carIt++)
       {
-         if (rides.size() == 0)
-         {
-            break;
-         }
+         if (rides.size() == 0) break;
 
          Car& car = cars[carIt];         
          if (!car.m_onTrip && !car.m_onRoute)
@@ -48,33 +45,37 @@ void execute_bestRoutePriority(const Reader& reader, Cars& cars, Rides& rides)
             {
                // car on starting point & able to start ride
                car.m_onRoute = true;
-               car.m_distanceToFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
-               --car.m_distanceToFinish;
+               car.m_distanceToRideFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
+               car.advanceToRideFinish();
             }
-            else
+            else 
             {
                // car too soon on ride starting point
-               car.m_distanceToRideStart > 0 ? --car.m_distanceToRideStart : car.m_distanceToRideStart;
+               car.m_distanceToRideStart > 0 ? car.advanceToRideStart() : car.m_distanceToRideStart;
             }
          }
          else if (car.m_onTrip && !car.m_onRoute)
          {
             // car not available, but ride not started
-            car.m_distanceToRideStart > 0 ? --car.m_distanceToRideStart : car.m_distanceToRideStart;
-
+            bool carAlreadyAdvanced = false;
+            if (car.m_distanceToRideStart > 0)
+            {
+               car.advanceToRideStart();               
+               carAlreadyAdvanced = true;
+            }
+            
             if (car.m_distanceToRideStart == 0 && car.m_currentRide.startTime() <= step)
             {
                // start ride
                car.m_onRoute = true;
-               car.m_distanceToFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
+               car.m_distanceToRideFinish = getDistance(car.m_currentPosition, car.m_currentRide.endPosition());
+               if (!carAlreadyAdvanced) car.advanceToRideFinish();
             }
          }
          else if (car.m_onTrip && car.m_onRoute)
          {
             // car not available, currently on route to destination
-            --car.m_distanceToFinish;
-
-            if (car.m_distanceToFinish == 0)
+            if (car.advanceToRideFinish() == 0)
             {
                car.finishRide();
             }
