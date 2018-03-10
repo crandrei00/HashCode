@@ -23,26 +23,27 @@ void findCarForRide(Ride& ride, Cars& cars)
    for (auto i = 0; i < cars.size(); ++i)
    {
       Car& car = cars[i];
+
+      // timeFactor > 0    --> BONUS
+      // timeFactor == 0   --> ON TIME
+      // timeFactor < 0    --> LATE, should not pair car with ride
+      unsigned long timeFactor = std::numeric_limits<unsigned long>::min();
       unsigned long distanceToStart = std::numeric_limits<unsigned long>::max();
+      
       if (!car.m_onTrip && !car.m_onRoute) // car available
       {
          distanceToStart = getDistance(ride.startPosition(), car.m_currentPosition);
+         timeFactor = ride.time() - (distanceToStart + ride.rideLength());
       }
-      else if (car.m_onTrip && !car.m_onRoute) // car has current trip to start
+      else // car unavailable, either on trip and/or on route
       {
-         distanceToStart = getDistance(car.m_currentPosition, car.m_currentRide.startPosition())
-            + car.m_currentRide.rideLength()
-            + getDistance(ride.startPosition(), car.m_currentRide.endPosition());
-
-      }
-      else // if (car->m_onTrip && car->m_onRoute) // car has current trip to finish
-      {
-         distanceToStart = getDistance(ride.startPosition(), car.m_currentRide.endPosition())
-            + car.m_currentRide.rideLength(); // ? not entirely correct, since we don't really know where the car is; presumably ride start
+         distanceToStart = car.m_distanceToRideStart + car.m_currentRide.rideLength()
+            + getDistance(ride.startPosition(), car.m_currentRide.endPosition());  
+         timeFactor = ride.time() - 
+            (distanceToStart + (car.m_currentRide.startTime() + car.m_currentRide.rideLength()) + ride.rideLength());
       }
 
-      if (distanceToStart < minDistanceToStart &&
-         ride.finishTime() - (distanceToStart + ride.rideLength()) >= 0)
+      if (distanceToStart < minDistanceToStart && timeFactor >= 0)
       {
          minDistanceToStart = distanceToStart;
          minDistanceCarIndex = i;

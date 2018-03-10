@@ -9,6 +9,8 @@ ride start position and deliver the passenger on time.
 #include "stdafx.h"
 #include "HashCode.hpp"
 
+//-----------------------------------
+
 void execute_bestCarForRide(const Reader& reader, Cars& cars, Rides& rides)
 {
    std::cout << "Processing execute_bestCarForRide() on file " + reader.m_fileName + " ... \n";
@@ -16,7 +18,6 @@ void execute_bestCarForRide(const Reader& reader, Cars& cars, Rides& rides)
    // sort rides according to (i) distance to origin and (ii) start time
    std::sort(rides.begin(), rides.end(), compareRides_closestToStartAndEarliestStart());
 
-   // todo: now try to match remaining rides' starting point/time with assigned rides end point/time
    for (auto ride : rides)
    {
       //if (hasTimeRunOut(cars, reader.m_totalT)) break;
@@ -40,3 +41,5 @@ void execute_bestCarForRide(const Reader& reader, Cars& cars, Rides& rides)
 
    std::cout << "Processing execute_bestCarForRide() on file " + reader.m_fileName + " ... done! \n";
 }
+
+//-----------------------------------

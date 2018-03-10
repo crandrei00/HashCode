@@ -26,6 +26,7 @@ class Ride
    unsigned m_rideLen;
    unsigned m_startTime;
    unsigned m_finishTime;
+   unsigned m_rideTime;
    unsigned m_rideID;
 
 public:
@@ -35,6 +36,7 @@ public:
       , m_rideLen(0)
       , m_startTime(0)
       , m_finishTime(0)
+      , m_rideTime(0)
       , m_rideID(-1)
    {
    }
@@ -45,6 +47,7 @@ public:
       , m_rideLen(getDistance(start, end))
       , m_startTime(startTime)
       , m_finishTime(endTime)
+      , m_rideTime(endTime - startTime)
       , m_rideID(id)
    {
    }
@@ -72,6 +75,11 @@ public:
    unsigned finishTime() const
    {
       return m_finishTime;
+   }
+
+   unsigned time() const
+   {
+      return m_rideTime;
    }
 
    unsigned id() const

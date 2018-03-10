@@ -39,6 +39,7 @@ struct Car
       m_rideNumber = ride.id();
       m_currentRide = ride;  
       m_distanceToRideStart = getDistance(m_currentPosition, m_currentRide.startPosition());
+      m_distanceToRideFinish = m_distanceToRideStart + ride.rideLength();
 
       m_rides.push_back(m_rideNumber);
    }
